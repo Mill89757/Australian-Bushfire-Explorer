@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Extrude polygons for 3D indoor mapping</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+<style>
+	body { margin: 0; padding: 0; }
+	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+	mapboxgl.accessToken = "pk.eyJ1IjoiZ2Fud2VpemhhbmciLCJhIjoiY2tkZnhmbXVtMWljNzJ3bXQ1enAxc2hidCJ9.tNd47J-pjQGHFYAiZL5YEA";
+    var map = new mapboxgl.Map({
+    container: "map",
+    style: "mapbox://styles/ganweizhang/ckdk78sgp0vha1ip60xwy2ngh",
+    center: [132.919, -29.646],
+    zoom: 4.07,
+    bearing: 47.53,
+    pitch: 60.00
+    });
+
+    // var map = new mapboxgl.Map({
+    //     container: 'map',
+    //     style: 'mapbox://styles/mapbox/streets-v11',
+    //     center: [-87.61694, 41.86625],
+    //     zoom: 15.99,
+    //     pitch: 40,
+    //     bearing: 20,
+    //     antialias: true
+    // });
+
+    function rotateCamera(timestamp) {
+        // clamp the rotation between 0 -360 degrees
+        // Divide timestamp by 100 to slow rotation to ~10 degrees / sec
+        map.rotateTo((timestamp / 100) % 360, {duration: 0});
+        // Request the next frame of the animation.
+        requestAnimationFrame(rotateCamera);
+    }
+
+
+    map.on('load', function() {
+        map.addSource('floorplan', {
+            // GeoJSON Data source used in vector tiles, documented at
+            // https://gist.github.com/ryanbaumann/a7d970386ce59d11c16278b90dde094d
+            'type': 'geojson',
+            'data': {
+        "features": [
+            {
+            "type": "Feature",
+            "properties": {
+                "name": "Adelaide",
+                "level": 2,
+                "base_height": 0,
+                "height": 800000*(13.76/50),
+                "color": "#fee8c8"
+            },
+            "geometry": {
+                "coordinates": [
+                [
+                    // right bottom
+                    [
+                        139.099503, 
+                        -35.42123
+                    ],
+                    // left bottom
+                    [
+                        139.099503, 
+                        -34.42123
+                    ],
+                    // left top
+                    [
+                        138.099503, 
+                        -34.42123
+                    ],
+                    // right top
+                    [
+                        138.099503, 
+                        -35.42123
+                    ],
+                    // repeat point - right bottom
+                    [
+                        139.099503, 
+                        -35.42123
+                    ]
+                ]
+                ],
+                "type": "Polygon"
+                },
+                "id": "8c0a3d9c1b86e63c289b15fbb8f4e47e"
+            },
+            {
+            "type": "Feature",
+            "properties": {
+                "name": "Brisbane",
+                "level": 1,
+                "base_height": 0,
+                "height": 800000*(21.12/50),
+                "color": "#fc8d59"
+            },
+            "geometry": {
+                "coordinates": [
+                [
+                    // right bottom
+                    [
+                        153.521072, 
+                        -27.970125
+                    ],
+                    // left bottom
+                    [
+                        153.521072, 
+                        -26.970125
+                    ],
+                    // left top
+                    [
+                        152.521072, 
+                        -26.970125
+                    ],
+                    // right top
+                    [
+                        152.521072, 
+                        -27.970125
+                    ],
+                    // repeat point - right bottom
+                    [
+                        153.521072, 
+                        -27.970125
+                    ]
+                ]
+                ],
+                "type": "Polygon"
+                },
+                "id": "6cc7a5db0200d32642b8e356f7a5b37b"
+            },
+            {
+            "type": "Feature",
+            "properties": {
+                "name": "Canberra",
+                "level": 1,
+                "base_height": 0,
+                "height": 800000*(17.16/50),
+                "color": "#fee8c8"
+            },
+            "geometry": {
+                "coordinates": [
+                [
+                    // right bottom
+                    [
+                        149.628998, 
+                        -35.782001
+                    ],
+                    // left bottom
+                    [
+                        149.628998, 
+                        -34.782001
+                    ],
+                    // left top
+                    [
+                        148.628998, 
+                        -34.782001
+                    ],
+                    // right top
+                    [
+                        148.628998, 
+                        -35.782001
+                    ],
+                    // repeat point - right bottom
+                    [
+                        149.628998, 
+                        -35.782001
+                    ]
+                ]
+                ],
+                "type": "Polygon"
+                }
+            },
+            {
+            "type": "Feature",
+            "properties": {
+                "name": "Darwin",
+                "level": 1,
+                "base_height": 0,
+                "height": 800000*(33.78/50),
+                "color": "#d7301f"
+            },
+            "geometry": {
+                "coordinates": [
+                [
+                    // right bottom
+                    [
+                        131.341782, 
+                        -12.962827
+                    ],
+                    // left bottom
+                    [
+                        131.341782, 
+                        -11.962827
+                    ],
+                    // left top
+                    [
+                        130.341782, 
+                        -11.962827
+                    ],
+                    // right top
+                    [
+                        130.341782, 
+                        -12.962827
+                    ],
+                    // repeat point - right bottom
+                    [
+                        131.341782, 
+                        -12.962827
+                    ]
+                ]
+                ],
+                "type": "Polygon"
+                }
+            },
+            {
+            "type": "Feature",
+            "properties": {
+                "name": "Tasmania",
+                "level": 1,
+                "base_height": 0,
+                "height": 800000*(11.65/50),
+                "color": "#fee8c8"
+            },
+            "geometry": {
+                "coordinates": [
+                [
+                    // right bottom
+                    [
+                        146.815918, 
+                        -42.140079
+                    ],
+                    // left bottom
+                    [
+                        146.815918, 
+                        -41.140079
+                    ],
+                    // left top
+                    [
+                        145.815918, 
+                        -41.140079
+                    ],
+                    // right top
+                    [
+                        145.815918,
+                        -42.140079
+                    ],
+                    // repeat point - right bottom
+                    [
+                        146.815918, 
+                        -42.140079
+                    ]
+                ]
+                ],
+                "type": "Polygon"
+                }
+            },
+            {
+            "type": "Feature",
+            "properties": {
+                "name": "Melbourne",
+                "level": 1,
+                "base_height": 0,
+                "height": 800000*(13.96/50),
+                "color": "#fee8c8"
+            },
+            "geometry": {
+                "coordinates": [
+                [
+                    // right bottom
+                    [
+                        146.129272,
+                        -37.915047
+                    ],
+                    // left bottom
+                    [
+                        146.129272,
+                        -36.915047
+                    ],
+                    // left top
+                    [
+                        145.129272,
+                        -36.915047
+                    ],
+                    // right top
+                    [
+                        145.129272, 
+                        -37.915047
+                    ],
+                    // repeat point - right bottom
+                    [
+                        146.129272,
+                        -37.915047
+                    ]
+                ]
+                ],
+                "type": "Polygon"
+                }
+            },
+            {
+            "type": "Feature",
+            "properties": {
+                "name": "Perth",
+                "level": 1,
+                "base_height": 0,
+                "height": 800000*(14.49/50),
+                "color": "#fee8c8"
+            },
+            "geometry": {
+                "coordinates": [
+                [
+                    // right bottom
+                    [
+                        116.357048, 
+                        -32.453512
+                    ],
+                    // left bottom
+                    [
+                        116.357048, 
+                        -31.453512
+                    ],
+                    // left top
+                    [
+                        115.357048, 
+                        -31.453512
+                    ],
+                    // right top
+                    [
+                        115.357048, 
+                        -32.453512
+                    ],
+                    // repeat point - right bottom
+                    [
+                        116.357048, 
+                        -32.453512
+                    ]
+                ]
+                ],
+                "type": "Polygon"
+                }
+            },
+            {
+            "type": "Feature",
+            "properties": {
+                "name": "Sydney",
+                "level": 1,
+                "base_height": 0,
+                "height": 800000*(18.46/50),
+                "color": "#fee8c8"
+            },
+            "geometry": {
+                "coordinates": [
+                [
+                    // right bottom
+                    [
+                        151.7099, 
+                        -34.365143
+                    ],
+                    // left bottom
+                    [
+                        151.7099, 
+                        -33.365143
+                    ],
+                    // left top
+                    [
+                        150.7099, 
+                        -33.365143
+                    ],
+                    // right top
+                    [
+                        150.7099, 
+                        -34.365143
+                    ],
+                    // repeat point - right bottom
+                    [
+                        151.7099, 
+                        -34.365143
+                    ]
+                ]
+                ],
+                "type": "Polygon"
+                }
+            }
+        ],
+        "type": "FeatureCollection"
+        }
+        });
+        map.addLayer({
+            'id': 'room-extrusion',
+            'type': 'fill-extrusion',
+            'source': 'floorplan',
+            'paint': {
+                // See the Mapbox Style Specification for details on data expressions.
+                // https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions
+
+                // Get the fill-extrusion-color from the source 'color' property.
+                'fill-extrusion-color': ['get', 'color'],
+
+                // Get fill-extrusion-height from the source 'height' property.
+                'fill-extrusion-height': ['get', 'height'],
+
+                // Get fill-extrusion-base from the source 'base_height' property.
+                'fill-extrusion-base': ['get', 'base_height'],
+
+                // Make extrusions slightly opaque for see through indoor walls.
+                'fill-extrusion-opacity': 0.7
+            }
+        });
+    });
+
+    rotateCamera(0);
+    
+
+</script>
+
+</body>
+</html>
