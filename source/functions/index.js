@@ -27,7 +27,7 @@ const runtimeOpts = {
 // let testRef = db.collection('weather/001/data');
 
 const url_header = "https://api.openweathermap.org/data/2.5/onecall?";
-const url_tail = "&units=metric&appid=823ffb93b274a86eb26fe1e342019550";
+const url_tail = "********";
 var colour_level = ["#FFF7EC", "#fee8c8", "#fdd49e", "#fdbb84", "#fc8d59", "#ef6548", "#d7301f", "#b30000", "#7f0000"];
 
 
